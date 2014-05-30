@@ -1,0 +1,45 @@
+###########################################
+#Makefile for simple programs
+###########################################
+INC     = 
+LIB     = -lpthread -lmysqlclient
+
+CC      = g++
+CC_FLAG = -Wall -g
+
+BIN     = BlogServer
+
+
+Server_OBJ     =								\
+					SearchServer.o 				\
+					QueryDBJob.o 				\
+					Config.o 					\
+					main.o 						\
+					INIParser.o 				\
+					Logger.o 					\
+					GetFileJob.o 				\
+					RequestHandler.o 			\
+					DBInstance.o 				\
+					TcpSocket.o 				
+
+
+ThreadPool_DIR =    ./ThreadPool/
+ThreadPool_OBJ =											\
+					$(ThreadPool_DIR)ThreadPoolManage.o 	\
+					$(ThreadPool_DIR)ThreadPool.o 			\
+					$(ThreadPool_DIR)Thread.o 				\
+					$(ThreadPool_DIR)WorkerThread.o 
+
+
+$(BIN):$(Server_OBJ) $(ThreadPool_OBJ)
+	$(CC) $(INC) $(LIB) $(Server_OBJ) $(ThreadPool_OBJ)  -o $@ 
+	
+
+.SUFFIXES: .c .o .cpp
+.cpp.o:
+	$(CC) $(CC_FLAG) $(INC) -c $*.cpp  -o $*.o
+
+.PRONY:clean
+clean:
+	@echo "Removing linked and compiled files......"
+	rm -f $(Server_OBJ) $(ThreadPool_OBJ) $(BIN)
