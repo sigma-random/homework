@@ -1,0 +1,28 @@
+
+
+编译：
+
+
+make server			//生成服务端程序	fileserver
+
+make client			//生成客户端程序	fileclient
+
+
+
+运行：
+
+1、 运行服务端
+
+./fileserver  127.0.0.1   2222
+
+
+2、连接服务端
+
+./fileclient  127.0.0.1  2222
+
+
+
+3、执行操作
+
+
+
